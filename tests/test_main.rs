@@ -9,7 +9,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as bool where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -63,7 +63,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Option<bool> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -117,7 +117,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Vec<bool> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -171,7 +171,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as i32 where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -219,7 +219,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Option<i32> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -267,7 +267,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Vec<i32> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -315,7 +315,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as String where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -357,7 +357,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Option<String> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -399,7 +399,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Vec<String> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -441,7 +441,7 @@ mod tests {
 
         macro_rules! setup {
             ($($x:expr),*) => {{
-                let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+                let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
                 command_args_parser! {@private val as Option<Vec<String>> where {short: "q", long: "val"} strings.into_iter()}
             }};
         }
@@ -481,7 +481,7 @@ mod tests {
 
     macro_rules! setup {
         ($($x:expr),*) => {{
-            let strings = vec!["main.rs".to_string(), $($x.to_string(),)*];
+            let strings = vec!["main.rs".to_string(), $($x.to_string()),*];
             command_args_parser! {@private
                 val1 as String where {short: "q", long: "val"};
                 val2 as i32 where {short: "w", long: "val2"};

@@ -55,11 +55,11 @@ pub enum ArgValue {
 impl ArgValue {
     fn append(self, val: String) -> Self {
         match self {
-            ArgValue::None => ArgValue::One(val),
-            ArgValue::One(prev_arg) => ArgValue::Many(vec![prev_arg, val]),
-            ArgValue::Many(mut arg_values) => {
+            Self::None => Self::One(val),
+            Self::One(prev_arg) => Self::Many(vec![prev_arg, val]),
+            Self::Many(mut arg_values) => {
                 arg_values.push(val);
-                ArgValue::Many(arg_values)
+                Self::Many(arg_values)
             }
         }
     }
@@ -146,9 +146,9 @@ pub trait ToType<T> {
 impl ToType<String> for ArgValue {
     fn parse(&self) -> String {
         match self {
-            ArgValue::None => panic!(),
-            ArgValue::One(val) => String::from_str(val).unwrap(),
-            ArgValue::Many(_) => panic!(),
+            Self::None => panic!(),
+            Self::One(val) => String::from_str(val).unwrap(),
+            Self::Many(_) => panic!(),
         }
     }
 }
@@ -156,9 +156,9 @@ impl ToType<String> for ArgValue {
 impl ToType<i32> for ArgValue {
     fn parse(&self) -> i32 {
         match self {
-            ArgValue::None => panic!(),
-            ArgValue::One(val) => i32::from_str(val).unwrap(),
-            ArgValue::Many(_) => panic!(),
+            Self::None => panic!(),
+            Self::One(val) => i32::from_str(val).unwrap(),
+            Self::Many(_) => panic!(),
         }
     }
 }
@@ -166,9 +166,9 @@ impl ToType<i32> for ArgValue {
 impl ToType<bool> for ArgValue {
     fn parse(&self) -> bool {
         match self {
-            ArgValue::None => true,
-            ArgValue::One(val) => bool::from_str(val).unwrap(),
-            ArgValue::Many(_) => panic!(),
+            Self::None => true,
+            Self::One(val) => bool::from_str(val).unwrap(),
+            Self::Many(_) => panic!(),
         }
     }
 
@@ -196,9 +196,9 @@ where
 {
     fn parse(&self) -> Vec<T> {
         match self {
-            ArgValue::None => Vec::default(),
-            ArgValue::One(val) => vec![T::from_str(val).unwrap()],
-            ArgValue::Many(values) => values
+            Self::None => Vec::default(),
+            Self::One(val) => vec![T::from_str(val).unwrap()],
+            Self::Many(values) => values
                 .iter()
                 .map(|val| T::from_str(val).unwrap())
                 .collect(),
@@ -223,10 +223,7 @@ where
     Self: ToType<T>,
 {
     fn parse(&self) -> Option<T> {
-        match ArgValue::parse_option(Some(self)) {
-            Some(val) => Some(val),
-            None => panic!(),
-        }
+        Some(self.parse())
     }
 
     fn reduce(left: Option<Option<T>>, right: Option<Option<T>>) -> Option<T> {
@@ -234,7 +231,7 @@ where
             (None, None) => None,
             (None, Some(val)) => val,
             (Some(val), None) => val,
-            (Some(left), Some(right)) => Some(ArgValue::reduce(left, right)),
+            (Some(left), Some(right)) => Some(Self::reduce(left, right)),
         }
     }
 }
@@ -245,14 +242,14 @@ macro_rules! command_args_parser {
         {
             #[derive(Debug)]
             struct Args {
-                $($var: $type),+,
+                $($var: $type),+
             }
             let args = $crate::collect_args($args);
             Args {
                 $($var: $crate::ArgValue::reduce(
                     $crate::ArgValue::parse_option(args.get(concat!("-", $short))),
                     $crate::ArgValue::parse_option(args.get(concat!("--", $long))),
-                )),+,
+                )),+
             }
         }
     };
