@@ -148,10 +148,7 @@ impl ToType<String> for ArgValue {
         match self {
             ArgValue::None => panic!(),
             ArgValue::One(val) => String::from_str(val).unwrap(),
-            ArgValue::Many(val) => {
-                dbg!(val);
-                panic!()
-            }
+            ArgValue::Many(_) => panic!(),
         }
     }
 }
